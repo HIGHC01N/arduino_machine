@@ -4,6 +4,9 @@
 #include "HUSKYLENS.h"
 #include "SoftwareSerial.h"
 
+///////////////////////////
+int buz = 2;
+///////////////////////////
 int value;
 HUSKYLENS huskylens;
 //HUSKYLENS green line >> SDA; blue line >> SCL
@@ -27,6 +30,7 @@ String li;
 
 void setup() {
   Serial.begin(115200);
+  pinMode(buz, OUTPUT);
   ///////////////////////////////
   Wire.begin();
   while (!huskylens.begin(Wire))
@@ -70,6 +74,12 @@ void printResult(HUSKYLENSResult result) {
   else {
     Serial.println("Object unknown!");
   }
+      if(value!=0){
+    digitalWrite(buz, HIGH);
+    delay(500);
+    digitalWrite(buz, LOW);
+    delay(500);
+  }
 }
 
 
@@ -107,6 +117,7 @@ void fetch(int objectId){
     buf = "";
     count = 0;
   }
+
 }
 
 
